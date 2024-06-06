@@ -6,7 +6,7 @@ export default function BlogId({ blog }) {
         <main className={style.main}>
             <h1 className={style.title}>{blog.title}</h1>
             <p className={style.publishedAt}>{blog.publishedAt}</p>
-            <p>{blog.category && blog.category.name}</p>
+            <p>カテゴリ：{blog.category && blog.category.name}</p>
             <div
                 dangerouslySetInnerHTML={{
                     __html: `${blog.body}`
