@@ -5,8 +5,14 @@ export default function BlogId({ blog }) {
     return (
         <main className={style.main}>
             <h1 className={style.title}>{blog.title}</h1>
-            <p className={style.publishedAt}>{blog.publishedAt}</p>
-            <p>カテゴリ：{blog.category && blog.category.name}</p>
+            <p className={style.publishedAt}>最終更新時間：{blog.publishedAt}</p>
+            {
+                blog.categories.map((category) => (
+                    <div key={category.id} className={style.tag}>
+                        {category.name}
+                    </div>
+                ))
+            }
             <div
                 dangerouslySetInnerHTML={{
                     __html: `${blog.body}`

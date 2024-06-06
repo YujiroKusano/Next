@@ -1,27 +1,18 @@
-import Link from "next/link";
-import { client } from "@/libs/client";
+import { useSession, signIn, signOut } from "next-auth/react";
 
-export default function Home({ blog }) {
-  return (
-    <div>
-      <ul>
-        {
-          blog.map((blog) => (
-            <li key={blog.id}>
-              <h1><Link href={`/blog/${blog.id}`}>{blog.title}</Link></h1>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  )
-}
-
-export const getStaticProps = async () => {
-  const data = await client.get({ endpoint: 'blog', });
-  return {
-    props: {
-      blog: data.contents,
-    }
+export default function Home() {
+  const {data: session } = useSession();
+  if (session) {
+    return(
+    <main>
+      Signed in as {session.user.email} <br/>
+      <button onClick={() => signOut()}>Sign Out</button>
+    </main>
+    )
   }
-}
+  return(  
+  <main>
+    No signed in <br/>
+    <button onClick={() => signIn()}>Sign In</button>
+  </main>
+  )}
